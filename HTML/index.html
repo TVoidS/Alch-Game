@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Alch Game Attempt</title>
+        <script src="../Javascript/gameLogic.js" type="text/javascript"></script>
+        <script src="../Javascript/resourceGen.js" type="text/javascript"></script>
+        <script src="../Javascript/settings.js" type="text/javascript"></script>
+        <!-- Connect style sheet and assets as required. Stylesheet should be in this section. -->
+        <!-- Any future scripts will have to connect to this section as well. -->
+
+        <script>
+            // This is for loading HTML items from other files.  This is basically directly pulled from w3 schools.
+            function includeHTML() {
+                var z, i, elmnt, file, xhttp;
+                /*loop through a collection of all HTML elements:*/
+                z = document.getElementsByTagName("*");
+                for (i = 0; i < z.length; i++) {
+                    elmnt = z[i];
+                    /*search for elements with a certain atrribute:*/
+                    file = elmnt.getAttribute("w3-include-html");
+                    if (file) {
+                        /*make an HTTP request using the attribute value as the file name:*/
+                        xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function() {
+                            if (this.readyState == 4) {
+                                if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                                if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                                /*remove the attribute, and call this function once more:*/
+                                elmnt.removeAttribute("w3-include-html");
+                                includeHTML();
+                            }
+                        }      
+                        xhttp.open("GET", file, true);
+                        xhttp.send();
+                        /*exit the function:*/
+                        return;
+                    }
+                }
+            };
+        </script>
+    </head>
+
+    <body>
+        <div id="wrapper">
+            <div id="gamecontainer">
+                <!-- Each section within here are different UIs and Screens.  
+                    Game Screen, Settings Screen, etc.  
+                    Probably a better way to insert html into html so that I can manage it better. 
+                -->
+                <div w3-include-html="settingsScreen.html"></div>
+                <h1>Test</h1>
+            </div>
+        </div>
+        <script>
+            includeHTML();
+        </script>
+    </body>
+</html>
